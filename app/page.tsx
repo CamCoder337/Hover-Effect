@@ -29,30 +29,33 @@ export default function Home() {
   const [active, setActive] = React.useState(0);
   const [show, setShow] = React.useState(false);
   const handleShow = (index: number) => {
+    // console.log("enter !");
     setShow(true);
     setActive(index);
+    // console.log(active);
   };
   const handleShowLeave = () => {
     setShow(false);
+    // // setActive(-1);
+    // console.log("leave !");
   }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-7xl gap-10 flex w-full items-center justify-between">
-        <div className="w-5/12 space-y-3">
+      <div className="z-10 max-w-7xl gap-10 flex w-full items-center justify-between ">
+        <div className="w-5/12 space-y-3 " onMouseLeave={handleShowLeave}>
           {data.map((item, index) => (
             <div
               key={index}
               className={`border border-slate-300 rounded-lg p-4 shadow-sm cursor-pointer duration-300 
-            ${active === index ? "bg-green-50 w-full" : "bg-white w-11/12"}
+            ${active === index && show ? "bg-green-50 w-full" : "bg-white w-11/12"}
             `}
               onMouseEnter={() => handleShow(index)}
-              onMouseLeave={handleShowLeave}
             >
               <h1 className="text-xl font-bold text-gray-800">{item.title}</h1>
               <div
                 className={`description
-              ${active === index && "active"}
+              ${active === index && show && "active"}
               `}
               >
                 <p className="text-sm text-gray-600">{item.description}</p>
@@ -60,7 +63,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="w-7/12 rounded-3xl overflow-hidden bg-white h-[500px] flex flex-col border border-slate-200">
+        <div className={`w-7/12 rounded-3xl overflow-hidden bg-white h-[500px] flex flex-col border border-slate-200 ${!show && "hidden"}`}>
           {data.map((item, index) => (
             <div
               key={index}
@@ -69,7 +72,6 @@ export default function Home() {
                 transform: `translateY(-${active * 100}%)`,
               }}
             >
-              {/* <div className="overflow-hidden"> */}
               <Image
                 alt="image"
                 src={item.cover_image}
@@ -77,9 +79,21 @@ export default function Home() {
                 height={954}
                 className="rounded-2xl w-full h-full object-cover"
               />
-              {/* </div> */}
             </div>
           ))}
+        </div>
+        <div className={`w-7/12 rounded-3xl overflow-hidden bg-white h-[500px] flex flex-col border border-slate-200 ${show ? 'hidden opacity-0' : 'opacity-100 transition-opacity duration-1000'}`}>
+            <div
+              className="w-full h-full flex items-center justify-center p-4 duration-300"
+            >
+              <Image
+                alt="image"
+                src={'/nothing.jpg'}
+                width={1469}
+                height={954}
+                className="rounded-2xl w-full h-full object-cover"
+              />
+            </div>
         </div>
       </div>
     </main>
