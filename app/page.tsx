@@ -45,6 +45,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1>Camcoder Portfolio Under Construction</h1>
       <div className="z-10 max-w-7xl gap-10 flex w-full items-center justify-between ">
         <div className="w-5/12 space-y-3 " onMouseLeave={handleShowLeave}>
           {data.map((item, index) => (
@@ -55,7 +56,7 @@ export default function Home() {
             `}
               onMouseEnter={() => handleShow(index)}
             >
-              <h1 className="text-xl font-bold text-gray-800">{item.title}</h1>
+              <h2 className="text-xl font-bold text-gray-800">{item.title}</h2>
               <div
                 className={`description
               ${active === index && show && "active"}
